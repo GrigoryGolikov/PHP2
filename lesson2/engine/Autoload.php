@@ -2,21 +2,17 @@
 
 class Autoload
 {
-    private $path = [
-        'models',
-        'engine',
-        'interfaces'
-    ];
 
     public function loadClass($className)
     {
-        foreach ($this->path as $path) {
-            $fileName = "../{$path}/{$className}.php";
-            var_dump($fileName);
-            if (file_exists($fileName)) {
-                include $fileName;
-                break;
-            }
+        $name = str_replace('\\','/',str_replace('app\\','',$className));
+        $fileName = "../{$name}.php";
+
+        // var_dump($className);
+
+        if (file_exists($fileName)) {
+            // var_dump($fileName);
+            include $fileName;
         }
     }
 }

@@ -4,13 +4,36 @@
 namespace app\models;
 
 
-class Basket extends Model
+class Cart extends Model
 {
     public $id;
-    public $products = [];// массив с объектами Product
+    public $id_product;
+    public $id_session;
+    public $quantity;
+    public $price;
 
-    public function getTableName()
-    {
-        return 'basket';
+    public function getTableName(){
+
+        return 'cart';
+
     }
+
+    public function cartSum(){
+
+        return 'cart sum';
+
+    }
+
+    public function addProduct($id_product, $quantity = 1){
+
+        return 'add ok';
+
+    }
+
+    public function removeProduct($id_product, $quantity = 1){
+
+        return 'remove ok';
+
+    }
+
 }
