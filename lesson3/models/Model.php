@@ -15,20 +15,52 @@ abstract class Model implements IModel
     }
 
     public function insert() {
-        foreach ($this as $key => $value)
-            var_dump($key);
-        die();
-        $sql = "INSERT INTO ()...";
+        $tableName = $this->getTableName();
+
+        $sql1 = 'INSERT INTO ' .$tableName.' (';
+        $sql2 = " VALUES (";
+        foreach ($this as $key => $value){
+            if (!($key == "id" or $key == "db" ))
+            {
+                $sql1 = $sql1 .$key. ", ";
+                $sql2 = $sql2 . "'" .$value. "'". ", ";
+            }
+        }
+
+        $sql1 = substr($sql1, 0, -2) . ") ";
+        $sql2 = substr($sql2, 0, -2)  . ") ";
+        $sql =  $sql1 . $sql2;
+        //var_dump($sql);
 
         $this->db->execute($sql);
-       // $this->id = lastinsertId;
+        $this->id = $this->db->lastInsertId();
+
     }
 
     public function delete() {
+        $tableName = $this->getTableName();
+        $sql =  'DELETE FROM ' .$tableName.'  WHERE id =' . $this->id;
 
+       // var_dump($sql);
+        $this->db->execute($sql);
     }
     public function update() {
+        $tableName = $this->getTableName();
 
+        $sql = 'UPDATE ' .$tableName.' SET  ';
+        foreach ($this as $key => $value){
+            if (!($key == "id" or $key == "db" ))
+            {
+                $sql = $sql . $key. ' = ' . "'" .$value. "'". ', ';
+            }
+        }
+
+        $sql = substr($sql, 0, -2) . " ";
+        $sql = $sql . '  WHERE id =' . $this->id;
+
+        //var_dump($sql);
+
+        $this->db->execute($sql);
     }
 
     public function getOne($id) {

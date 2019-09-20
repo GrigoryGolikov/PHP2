@@ -1,4 +1,4 @@
-<?
+<?php
 
 use app\models\{Basket, Product, User};
 use app\engine\Db;
@@ -10,13 +10,13 @@ spl_autoload_register([new Autoload(), 'loadClass']);
 
 
 
-$product = new Product();
+$product = new Product("Пицца","Описание", 125);
 $product->insert();
-var_dump($product->getOne(1));
+$product->delete();
 
-
-
-
-
-var_dump($product);
+$user = new User("Петя",123);
+$user->insert();
+$user->pass = 456;
+$user->update();
+//$user->delete();
 

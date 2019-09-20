@@ -10,8 +10,8 @@ class Db
         'driver' => 'mysql',
         'host' => 'localhost',
         'login' => 'root',
-        'password' => '',
-        'database' => 'shop',
+        'password' => 'root',
+        'database' => 'my_shop',
         'charset' => 'utf8'
     ];
 
@@ -57,6 +57,11 @@ class Db
 
     public function queryAll($sql, $params = []) {
         return $this->query($sql, $params)->fetchAll();
+    }
+    public function lastInsertId() {
+
+        return $this->getConnection()->lastInsertId();
+
     }
 
 }
